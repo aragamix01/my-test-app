@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-12">
+        <ng-container *ngIf="listNavigate === 'input'; else elseTemplate">
+            <app-list-edit
+            (onAddEvent)="addItemToList($event)"
+            [editItem]="item"
+            [indexOfItem]="index"
+            (onEditEvent)="onEditListItem($event)"
+            ></app-list-edit>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+      <div class="col-md-12">
+          <ng-template #elseTemplate>
+              <div class="col-md-6"> 
+                  <hr>
+                  <app-list-desc
+                  [item]="item"
+                  ></app-list-desc>
+              </div>
+              <div class="card" *ngFor="let item of items"
+              (click)="onSelectedItem(item)"
+              >
+                <div class="card-header">
+                  {{ item.itemName }}
+                  <button class="btn btn-danger fa fa-ban float-right " (click)="onDeleteItem(item)"></button>
+                  <button class="btn btn-warning fa fa-pencil float-right" 
+                  (click)="onSelectedEdit(item)"
+                  style="margin-right: 10px"></button>
+                </div>
+                <div class="card-block">
+                  <p class="card-text">{{ item.itemDesc }}</p>
+                </div>
+              </div>
+          </ng-template> 
+      </div>
+    </div>
+</div>

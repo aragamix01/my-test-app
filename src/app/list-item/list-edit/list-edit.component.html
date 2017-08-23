@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      <label for="itemName">Item Name</label>
+      <input type="text" class="form-control" id="itemName" [(ngModel)]='itemName'>
+      <label for="itemDesc">Item Description</label>
+      <input type="text" class="form-control" id="itemDesc" [(ngModel)]='itemDesc'>
+      <br>
+      <button class="btn btn-success" (click)="onAddItem()">Add</button>
+      <button class="btn btn-warning" (click)="onEditItem()" [disabled]="canEditAble">Edit</button>
+    </div>
+  </div>
+</div>

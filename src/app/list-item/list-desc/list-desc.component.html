@@ -1,0 +1,11 @@
+
+
+<ng-container *ngIf="item; else show">
+    <p>Name: {{ item.itemName }}</p>
+    <p>Description: {{ item.itemDesc }}</p> 
+</ng-container>
+<ng-template #show>
+    <p>Name: Plese select item</p>
+    <p>Description: Plese select item</p> 
+</ng-template>
+

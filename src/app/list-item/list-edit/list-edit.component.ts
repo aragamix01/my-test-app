@@ -1,5 +1,18 @@
-import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { ListItem } from '../list-item.model';
+import {
+  ListItem
+} from './../list-item.model';
+import {
+  ListItemService
+} from './../list-item.service';
+import {
+  Component,
+  OnInit,
+  Output,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  EventEmitter
+} from '@angular/core';
 
 @Component({
   selector: 'app-list-edit',
@@ -8,8 +21,13 @@ import { ListItem } from '../list-item.model';
 })
 export class ListEditComponent implements OnInit, OnChanges {
 
-  @Output() onAddEvent = new EventEmitter<{itemName: string, itemDesc: string, navigate: string}>();
-  @Output() onEditEvent = new EventEmitter<{itemName: string, itemDesc: string, indexOfItem: number, navigate: string}>();
+  @Output() onEditEvent = new EventEmitter < {
+    itemName: string,
+    itemDesc: string,
+    indexOfItem: number,
+    navigate: string
+  } > ();
+
   @Input() editItem: ListItem;
   @Input() indexOfItem: number;
 
@@ -18,15 +36,12 @@ export class ListEditComponent implements OnInit, OnChanges {
   indexItem: number;
   canEditAble = true;
 
-  constructor() {
-  }
+  constructor(private liService: ListItemService) {}
 
-  ngOnInit() { }
-
-
+  ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if ( this.editItem ) {
+    if (this.editItem) {
       this.itemName = changes.editItem.currentValue.itemName;
       this.itemDesc = changes.editItem.currentValue.itemDesc;
       this.indexItem = changes.indexOfItem.currentValue;
@@ -35,20 +50,19 @@ export class ListEditComponent implements OnInit, OnChanges {
   }
 
   onAddItem() {
-    this.onAddEvent.emit({
-      itemName: this.itemName,
-      itemDesc: this.itemDesc,
-      navigate: 'list'
-    });
+    this.liService.addListItem(new ListItem(this.itemName, this.itemDesc));
+    this.liService.onChangeNavigate.emit('list');
   }
 
   onEditItem() {
-    this.onEditEvent.emit({
-      itemName: this.itemName,
-      itemDesc: this.itemDesc,
-      indexOfItem: this.indexItem,
-      navigate: 'list'
-    });
+    const listItem = new ListItem(this.itemName, this.itemDesc);
+    this.liService.editListItem(this.indexItem, listItem);
+    this.liService.onChangeNavigate.emit('list');
+  }
+
+  onClearItem() {
+    this.itemName = '';
+    this.itemDesc = '';
   }
 
 }

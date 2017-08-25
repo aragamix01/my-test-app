@@ -6,6 +6,7 @@ import { HeaderComponent } from './header/header.component';
 import { ListItemComponent } from './list-item/list-item.component';
 import { ListEditComponent } from './list-item/list-edit/list-edit.component';
 import { ListDescComponent } from './list-item/list-desc/list-desc.component';
+import { ToggleCollapseDirective } from './shared/toggle-collapse.directive';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { ListDescComponent } from './list-item/list-desc/list-desc.component';
     HeaderComponent,
     ListItemComponent,
     ListEditComponent,
-    ListDescComponent
+    ListDescComponent,
+    ToggleCollapseDirective
   ],
   imports: [
     BrowserModule,
